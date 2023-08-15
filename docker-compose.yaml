@@ -1,0 +1,65 @@
+version: '3.9'
+name: inlaze
+services:
+  redis:
+    image: redis:6.2.13-alpine3.18
+    command: ["redis-server", "--bind", "redis", "--port", "6379"]
+    ports:
+      - 6379:6379
+    volumes:
+      - redis:/data
+  postgres:
+    image: postgres:13
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: $BD_USER
+      POSTGRES_PASSWORD: $BD_PASS
+      POSTGRES_DB: $BD_NAME
+  back:
+    container_name: auth
+    build:
+      context: ./inlaze_backend_auth
+      dockerfile: Dockerfile
+    ports:
+      - 3200:3200
+    environment:
+      - PORT=3200
+      - BD_HOST=$BD_HOST
+      - BD_USER=$BD_USER
+      - BD_PASS=$BD_PASS
+      - BD_NAME=$BD_NAME
+      - REDIS_URL=$REDIS_URL
+
+      - JWT_SECRET=$JWT_SECRET
+    depends_on:
+      - redis
+      - postgres
+
+  other_back:
+    container_name: cocktail
+    build:
+      context: ./inlaze_backend_cocktail
+      dockerfile: Dockerfile
+    ports:
+      - 3100:3100
+    environment:
+      - PORT=3100
+      - BD_HOST=$BD_HOST
+      - BD_USER=$BD_USER
+      - BD_PASS=$BD_PASS
+      - BD_NAME=$BD_NAME
+      - REDIS_URL=$REDIS_URL
+
+      - JWT_SECRET=$JWT_SECRET
+    depends_on:
+      - redis
+      - postgres
+
+volumes:
+  db-data:
+
+  redis:

@@ -16,7 +16,7 @@ La intención de un 3er repositorio es facilitar su proceso de revisión 🔥, c
 
  ## Deployment
 
-Para correr el proyecto basta con ejecutar el comando
+Para correr el proyecto basta con ejecutar el comando en la raíz del repositorio
 
 ```bash
   docker-compose up -d

@@ -6,7 +6,7 @@
 ## Repositorios
 - https://github.com/Magentya/inlaze_backend_auth
 - https://github.com/Magentya/inlaze_backend_cocktail
-- https://github.com/Magentya/inlaze
+- https://github.com/Magentya/inlaze_all
 
 La intención de un 3er repositorio es facilitar su proceso de revisión 🔥, cada repositorio fue trabajado con el único fin de preparar de la mejor manera la virtualización🧪
 
